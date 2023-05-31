@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.io.IOException;
 
 @Controller
-//@Profile("externalAPI")
+@Profile("externalAPI")
 public class ExternalAPIController {
 
     @Autowired
