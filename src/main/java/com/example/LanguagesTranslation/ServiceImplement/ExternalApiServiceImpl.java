@@ -1,6 +1,7 @@
 package com.example.LanguagesTranslation.ServiceImplement;
 
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,35 +18,33 @@ import java.nio.charset.StandardCharsets;
 @Service
 public class ExternalApiServiceImpl {
 
-    public ModelAndView getTranslationsFromAPI( @PathVariable(value = "language") String language) throws IOException, InterruptedException {
+    public String getTranslationsFromAPI(Model modelMessage, @PathVariable(value = "language") String language) throws IOException, InterruptedException {
 
         String target = getTarget(language);
+        System.out.println(target);
 
         if(target == null) {
-            ModelAndView page = new ModelAndView("helloworld");
-            page.addObject("text", "Language doesn't exists!");
+            modelMessage.addAttribute("text", "Language doesn't exists!");
         } else if(!target.equalsIgnoreCase("en")) {
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("https://google-translate1.p.rapidapi.com/language/translate/v2"))
                     .header("content-type", "application/x-www-form-urlencoded")
                     .header("Accept-Encoding", "application/gzip")
-                    .header("X-RapidAPI-Key", "6e35ed755fmsh9770bc385f97d71p166555jsn172cfe22ab75")
+                    .header("X-RapidAPI-Key", "ec29577649mshbe75a484063146fp1204c0jsn2c06c60b01af")
                     .header("X-RapidAPI-Host", "google-translate1.p.rapidapi.com")
                     .method("POST", HttpRequest.BodyPublishers.ofString("q=Hello%2C%20world!&target=" + target + "&source=en"))
                     .build();
             HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println(response.body());
 
-            ModelAndView page = new ModelAndView("helloworld");
-            page.addObject("text", response.body().toString().split("\"translatedText\":\"")[1].split("\"}")[0]);
+            modelMessage.addAttribute("text", response.body().toString().split("\"translatedText\":\"")[1].split("\"}")[0]);
 
         }else {
-            ModelAndView page = new ModelAndView("helloworld");
-            page.addObject("text", "Hello World!");
+            modelMessage.addAttribute("text", "Hello World!");
         }
 
-        return new ModelAndView("helloWorld");
+        return "externalhelloworld";
     }
 
     private String getTarget(String language) {

@@ -12,14 +12,14 @@ import org.springframework.web.servlet.ModelAndView;
 import java.io.IOException;
 
 @Controller
-@Profile("externalAPI")
+//@Profile("externalAPI")
 public class ExternalAPIController {
 
     @Autowired
     private ExternalApiServiceImpl externalApiService;
 
-    @GetMapping("/hello/{language}")
-    public ModelAndView getTranslationsFromAPI(Model modelMessage, @PathVariable(value = "language") String language) throws IOException, InterruptedException {
-        return externalApiService.getTranslationsFromAPI(language);
+    @GetMapping("/hello/api/{language}")
+    public String getTranslationsFromAPI(Model modelMessage, @PathVariable(value = "language") String language) throws IOException, InterruptedException {
+        return externalApiService.getTranslationsFromAPI(modelMessage,language);
     }
 }
