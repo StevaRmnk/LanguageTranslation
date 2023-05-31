@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  languagestranslation:
+    container_name: languagestranslation
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: on-failure
+    depends_on:
+      - mysqldatabase
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldatabase:3306/languagestranslation
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_USERNAME: root
+
+  mysqldatabase:
+    image: mysql
+    container_name: mysqldatabase
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USERNAME: root
+      MYSQL_DATABASE: languagestranslation
+    ports:
+      - 3307:3306
+    volumes:
+      - ./baza:/mysql/data1

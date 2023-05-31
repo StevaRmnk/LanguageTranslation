@@ -19,10 +19,9 @@ public class Aspects {
 
     Logger logger = LoggerFactory.getLogger(Aspects.class);
 
-    @Pointcut(value = "execution(* com.example.LanguagesTranslation.Controller.HelloWorldController.*.(..))"+
-            "|| execution(* com.example.LanguagesTranslation.Controller.HelloWorldRestController.*.(..))"+
-            "|| execution(* com.example.LanguagesTranslation.Controller.TranslationController.*.(..)")
-
+    @Pointcut(value = "execution(* com.example.LanguagesTranslation.Controller.HelloWorldController.*(..))"+
+            "|| execution(* com.example.LanguagesTranslation.Controller.HelloWorldRestController.*(..))"+
+            "|| execution(* com.example.LanguagesTranslation.Controller.TranslationController.*(..))")
     public void pointcutJoinPoint() {
 
     }

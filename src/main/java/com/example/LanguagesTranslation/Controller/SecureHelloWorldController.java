@@ -59,4 +59,10 @@ public class SecureHelloWorldController {
 
         return "redirect:/";
     }
+
+    @GetMapping(value = "/loginpage")
+    public ModelAndView loginPage(){
+        ModelAndView page = new ModelAndView("login");
+        return page;
+    }
 }

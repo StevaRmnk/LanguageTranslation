@@ -8,13 +8,6 @@
     <div>
       <h1 th:text ="${text}"></h1>
     </div>
-
-    <br>
-    <label>Login: </label>
-    <form action = "/login" method="get">
-        <input type="text" name = "username" placeholder="Enter username" required="required">
-        <input type="password" name = "password" placeholder="Enter password" required="required">
-        <input type="submit" value="Login">
-    </form>
+    <a th:href = "@{/loginpage}">Login</a>
 </body>
 </html>
