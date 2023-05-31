@@ -10,12 +10,14 @@ public class HelloWorldController {
     @GetMapping(value = "/")
     public ModelAndView helloWorldDefault(){
         ModelAndView page = new ModelAndView("helloworld");
+        page.addObject("text","Hello World!");
         return  page;
     }
 
     @GetMapping(value = "/hello")
     public ModelAndView helloWorldPage(){
         ModelAndView page = new ModelAndView("helloworld");
+        page.addObject("text","Hello World!");
         return  page;
     }
 }
